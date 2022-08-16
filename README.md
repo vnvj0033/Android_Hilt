@@ -1,3 +1,23 @@
+## Hilt in Application class
+```kotlin
+@HiltAndroidApp
+class LogApplication : Application() {
+}
+```
+
+
+## Hilt field injection
+```kotlin
+@AndroidEntryPoint
+class LogsFragment : Fragment() {
+    @Inject lateinit var logger: LoggerLocalDataSource
+}
+
+class LoggerLocalDataSource @Inject constructor(private val logDao: LogDao) {
+    
+}
+```
+
 # Using Hilt in your Android app
 
 This folder contains the source code for the "Using Hilt in your Android app" codelab.<br />
