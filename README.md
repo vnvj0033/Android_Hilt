@@ -1,3 +1,10 @@
+## container instance
+```kotlin
+@Singleton
+class LoggerLocalDataSource @Inject constructor(private val logDao: LogDao)
+```
+
+
 ## Hilt in Application class
 ```kotlin
 @HiltAndroidApp
