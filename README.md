@@ -1,19 +1,20 @@
-## container instance
+## 
+
+
+## instance container hilt
+애플리케이션 컨테이너에서 항상 같은 인스턴스를 제공
 ```kotlin
 @Singleton
 class LoggerLocalDataSource @Inject constructor(private val logDao: LogDao)
 ```
 
-
-## Hilt in Application class
+## define hilt
 ```kotlin
-@HiltAndroidApp
-class LogApplication : Application() {
-}
+class DateFormatter @Inject constructor()
 ```
 
-
 ## Hilt field injection
+(Activity, Fragment, View, Service, BroadcastReceiver) 생명주기의 컨테이너 생성
 ```kotlin
 @AndroidEntryPoint
 class LogsFragment : Fragment() {
@@ -24,6 +25,15 @@ class LoggerLocalDataSource @Inject constructor(private val logDao: LogDao) {
     
 }
 ```
+
+## Hilt in Application class
+App 생명주기의 컨테이너를 생성
+```kotlin
+@HiltAndroidApp
+class LogApplication : Application() {
+}
+```
+
 
 # Using Hilt in your Android app
 
