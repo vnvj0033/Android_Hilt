@@ -1,5 +1,6 @@
 package com.example.android.hilt.sandbox
 
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,4 +12,12 @@ class SandboxModule {
 
     @Provides
     fun provideSandboxModel() = SandboxModel("base name", 0)
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class SandboxBindModule {
+
+    @Binds
+    abstract fun bindSandboxModel(name: String, ver: Int): SandboxModel
 }
