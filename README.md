@@ -2,7 +2,7 @@
 
 
 ## instance container hilt
-애플리케이션 컨테이너에서 항상 같은 인스턴스를 제공
+애플리케이션 컨테이너에서 항상 같은 인스턴스를 제공 (LoggerLocalDataSource는 singleton 객체)
 ```kotlin
 @Singleton
 class LoggerLocalDataSource @Inject constructor(private val logDao: LogDao)
