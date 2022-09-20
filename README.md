@@ -1,4 +1,13 @@
-## 
+## Hilt Module
+생성자가 삽입될 수 없는 유형의 결합을 Hilt 모듈에 포함
+@InstallIn : 요구사항을 지정
+```kotlin
+//@InstallIn 주석으로 요구사항을 지정
+@InstallIn(ApplicationComponent::class)
+@Module
+object DatabaseModule
+
+```
 
 
 ## instance container hilt
