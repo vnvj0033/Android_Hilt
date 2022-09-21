@@ -29,21 +29,14 @@ class DateFormatter @Inject constructor()
 (Activity, Fragment, View, Service, BroadcastReceiver) 생명주기의 컨테이너 생성
 ```kotlin
 @AndroidEntryPoint
-class LogsFragment : Fragment() {
-    @Inject lateinit var logger: LoggerLocalDataSource
-}
-
-class LoggerLocalDataSource @Inject constructor(private val logDao: LogDao) {
-    
-}
+class LogsFragment : Fragment()
 ```
 
 ## Hilt in Application class
 App 생명주기의 컨테이너를 생성
 ```kotlin
 @HiltAndroidApp
-class LogApplication : Application() {
-}
+class LogApplication : Application()
 ```
 
 
