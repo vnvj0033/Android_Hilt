@@ -5,13 +5,14 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Inject
 
 @Module
 @InstallIn(SingletonComponent::class)
 class SandboxModule {
 
     @Provides
-    fun provideSandboxModel() = SandboxModel("base name", 0)
+    fun provideSandboxModel() = SandboxModel("base name", 1)
 }
 
 @Module
@@ -19,5 +20,12 @@ class SandboxModule {
 abstract class SandboxBindModule {
 
     @Binds
-    abstract fun bindSandboxModel(name: String, ver: Int): SandboxModel
+    abstract fun bindSandboxModel(name: SandboxModelImp): SandboxModelInterface
+
+}
+
+class SandboxModelImp @Inject constructor() : SandboxModelInterface {
+    override fun nab() {
+
+    }
 }

@@ -12,7 +12,6 @@ object DatabaseModule
 
 ```
 
-
 ## instance container hilt
 애플리케이션 컨테이너에서 항상 같은 인스턴스를 제공
 Activity 내부 동일 인스턴스는 @ActivityScoped를 사용 
