@@ -25,6 +25,18 @@ class LoggerLocalDataSource @Inject constructor(private val logDao: LogDao)
 class DateFormatter @Inject constructor()
 ```
 
+## inject filed
+@Inject 로 필드 삽입
+인스턴스는 onAttach에서 주입
+```kotlin
+@AndroidEntryPoint
+class LogsFragment : Fragment() {
+    @Inject lateinit var logger: LoggerLocalDataSource
+    @Inject lateinit var dateFormatter: DateFormatter
+
+}
+```
+
 ## Hilt field injection
 (Activity, Fragment, View, Service, BroadcastReceiver) 생명주기의 컨테이너 생성
 ```kotlin
