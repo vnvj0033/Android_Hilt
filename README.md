@@ -25,6 +25,12 @@ class LoggerLocalDataSource @Inject constructor(private val logDao: LogDao)
 class DateFormatter @Inject constructor()
 ```
 
+##  provide dependencies
+생성자에 @Inject 추가하여 주입 대상 알림
+```kotlin
+class LoggerLocalDataSource @Inject constructor(private val logDao: LogDao)
+```
+
 ## inject filed
 @Inject 로 필드 삽입
 인스턴스는 onAttach에서 주입
