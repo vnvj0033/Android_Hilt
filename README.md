@@ -14,15 +14,11 @@ object DatabaseModule
 
 
 ## instance container hilt
-애플리케이션 컨테이너에서 항상 같은 인스턴스를 제공 (LoggerLocalDataSource는 singleton 객체)
+애플리케이션 컨테이너에서 항상 같은 인스턴스를 제공
+Activity 내부 동일 인스턴스는 @ActivityScoped를 사용 
 ```kotlin
 @Singleton
 class LoggerLocalDataSource @Inject constructor(private val logDao: LogDao)
-```
-
-## define hilt
-```kotlin
-class DateFormatter @Inject constructor()
 ```
 
 ##  provide dependencies
