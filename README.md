@@ -1,5 +1,26 @@
 
-## Provides instancs
+## Binds
+```kotlin
+interface ModelInterface {
+    fun getModelInfo(): String
+}
+
+data class Model @Inject constructor() : ModelInterface {
+    override fun getModelInfo() = "name version"
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class BindModule {
+
+    @Binds
+    abstract fun bindModel(model: ModelImp): ModelInterface
+}
+
+// used
+@Inject lateinit var module: Module  
+
+```
 
 ## Hilt Module
 생성자가 삽입될 수 없는 유형의 결합을 Hilt 모듈에 포함
