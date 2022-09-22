@@ -5,7 +5,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Inject
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -20,12 +19,6 @@ class SandboxModule {
 abstract class SandboxBindModule {
 
     @Binds
-    abstract fun bindSandboxModel(name: SandboxModelImp): SandboxModelInterface
+    abstract fun bindSandboxModel(name: SandboxModel): SandboxModelInterface
 
-}
-
-class SandboxModelImp @Inject constructor() : SandboxModelInterface {
-    override fun nab() {
-
-    }
 }
