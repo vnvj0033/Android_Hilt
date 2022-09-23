@@ -14,7 +14,7 @@ class SandboxActivity : AppCompatActivity() {
 
     @Inject lateinit var sandboxModel: SandboxModel
 
-    @Inject lateinit var mailFragment: MailFragment
+//    @Inject lateinit var mailFragment: MailFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +22,7 @@ class SandboxActivity : AppCompatActivity() {
 
         Log.d("testsyyoo", sandboxModel.toString())
 
-        mailFragment.show()
+//        mailFragment.show()
     }
 
     private fun Fragment.show() =

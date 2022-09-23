@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 class MailFragment : Fragment() {
 
-    @Inject
-    lateinit var mail: Mail
+//    @Inject
+//    lateinit var mail: Mail
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -21,7 +21,7 @@ class MailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.d("testsyyoo", mail.toString())
+//        Log.d("testsyyoo", mail.toString())
 
     }
 }
