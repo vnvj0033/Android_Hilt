@@ -1,5 +1,6 @@
 
 ## Binds
+@Binds 역시 공급 가능(성능적 유리)
 ```kotlin
 interface ModelInterface {
     fun getModelInfo(): String
@@ -22,6 +23,32 @@ abstract class BindModule {
 
 ```
 
+## Provides
+@Provides를 이용하여 객체를 제공한다.
+```kotlin
+@InstallIn(SingletonComponent::class)
+@Module
+object DatabaseModule {
+
+    @Provides
+    fun provideLogDao(database: AppDatabase): LogDao {
+        return database.logDao()
+    }
+    
+    // If you want context, you can use @ApplicationContext
+    @Provides
+    @Singleton
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "logging.db"
+        ).build()
+    }
+}
+
+```
+
 ## Hilt Module
 생성자가 삽입될 수 없는 유형의 결합을 Hilt 모듈에 포함
 @InstallIn : 요구사항을 지정
@@ -29,9 +56,7 @@ abstract class BindModule {
 //@InstallIn 주석으로 요구사항을 지정
 @InstallIn(ApplicationComponent::class)
 @Module
-object DatabaseModule {
-    
-}
+object DatabaseModule
 
 ```
 
