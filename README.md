@@ -18,7 +18,7 @@ abstract class BindModule {
 }
 
 // used
-@Inject lateinit var module: Module  
+@Inject lateinit var model: Model  
 
 ```
 
@@ -29,7 +29,9 @@ abstract class BindModule {
 //@InstallIn 주석으로 요구사항을 지정
 @InstallIn(ApplicationComponent::class)
 @Module
-object DatabaseModule
+object DatabaseModule {
+    
+}
 
 ```
 
