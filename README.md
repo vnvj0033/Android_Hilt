@@ -1,7 +1,36 @@
 
+## test Runner
+```kotlin
+// com.example.android.hilt(androidTest).CustomTestRunner
+class CustomTestRunner : AndroidJUnitRunner() {
+
+    override fun newApplication(cl: ClassLoader?, name: String?, context: Context?): Application {
+        return super.newApplication(cl, HiltTestApplication::class.java.name, context)
+    }
+}
+
+// glider.app
+android {
+    defaultConfig {
+        testInstrumentationRunner "com.example.android.hilt.CustomTestRunner"
+    }
+}
+
+// running test
+@RunWith(AndroidJUnit4::class)
+@HiltAndroidTest
+class AppTest {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+
+}
+
+```
+
 ## Qualifier
 Qualifier 를 사용하여 multiple binding 지원 
-````kotlin
+```kotlin
 @Qualifier
 annotation class InMemoryLogger
 
@@ -19,7 +48,7 @@ abstract class LoggingInMemoryModule {
 //use with inject
 @InMemoryLogger
 @Inject lateinit var logger: LoggerDataSource
-````
+```
 
 ## Binds
 @Binds 역시 공급 가능(성능적 유리)
