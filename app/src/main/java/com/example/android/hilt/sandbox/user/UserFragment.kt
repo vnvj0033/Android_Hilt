@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.android.hilt.sandbox.UserScope
 import javax.inject.Inject
 
 class UserFragment : Fragment() {
 
+    @UserScope
     @Inject lateinit var user: User
 
     override fun onCreateView(

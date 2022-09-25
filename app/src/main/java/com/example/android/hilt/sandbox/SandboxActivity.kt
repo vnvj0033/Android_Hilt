@@ -15,8 +15,13 @@ class SandboxActivity : AppCompatActivity() {
 
     @Inject lateinit var sandboxModel: SandboxModel
 
-    @Inject lateinit var mailFragment: MailFragment
-    @Inject lateinit var userFragment: UserFragment
+    @MailScope
+    @Inject
+    lateinit var mailFragment: MailFragment
+
+    @UserScope
+    @Inject
+    lateinit var userFragment: UserFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
