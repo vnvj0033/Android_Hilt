@@ -1,4 +1,3 @@
 package com.example.android.hilt.sandbox.user
 
-class User {
-}
+data class User(private val name: String)
