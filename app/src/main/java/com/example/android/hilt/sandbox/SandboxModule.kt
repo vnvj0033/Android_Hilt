@@ -23,6 +23,10 @@ class SandboxModule {
     @Provides
     fun providesMail() = Mail("mail name", "body")
 
+    @MailScope
+    @Provides
+    fun providesMailUser() = User("mail user name")
+
     @UserScope
     @Provides
     fun providesUserFragment() = UserFragment()

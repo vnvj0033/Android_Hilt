@@ -12,5 +12,4 @@ data class SandboxModel @Inject constructor(
 
 interface SandboxModelInterface {
     fun getModelInfo(): String
-
 }
