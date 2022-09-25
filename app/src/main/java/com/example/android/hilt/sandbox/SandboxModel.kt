@@ -6,7 +6,7 @@ data class SandboxModel @Inject constructor(
     val name: String,
     val version: Int
 ) : SandboxModelInterface {
-    override fun getModelInfo() = "$name V.$version"
+    override fun getModelInfo() = "name:$name, V:$version"
 }
 
 

@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.android.hilt.R
 import com.example.android.hilt.sandbox.mail.MailFragment
+import com.example.android.hilt.sandbox.user.UserFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -14,7 +15,8 @@ class SandboxActivity : AppCompatActivity() {
 
     @Inject lateinit var sandboxModel: SandboxModel
 
-//    @Inject lateinit var mailFragment: MailFragment
+    @Inject lateinit var mailFragment: MailFragment
+    @Inject lateinit var userFragment: UserFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +24,8 @@ class SandboxActivity : AppCompatActivity() {
 
         Log.d("testsyyoo", sandboxModel.toString())
 
-//        mailFragment.show()
+        mailFragment.show()
+        userFragment.show()
     }
 
     private fun Fragment.show() =
