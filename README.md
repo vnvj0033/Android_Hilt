@@ -1,4 +1,26 @@
 
+## Qualifier
+Qualifier 를 사용하여 multiple binding 지원 
+````kotlin
+@Qualifier
+annotation class InMemoryLogger
+
+@InstallIn(ActivityComponent::class)
+@Module
+abstract class LoggingInMemoryModule {
+
+    @InMemoryLogger
+    @ActivityScoped
+    @Binds
+    abstract fun bindInMemoryLogger(impl: LoggerInMemoryDataSource): LoggerDataSource
+}
+
+
+//use with inject
+@InMemoryLogger
+@Inject lateinit var logger: LoggerDataSource
+````
+
 ## Binds
 @Binds 역시 공급 가능(성능적 유리)
 ```kotlin
