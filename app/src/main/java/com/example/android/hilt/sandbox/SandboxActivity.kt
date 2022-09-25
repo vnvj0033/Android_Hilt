@@ -34,8 +34,7 @@ class SandboxActivity : AppCompatActivity() {
     }
 
     private fun Fragment.show() =
-        supportFragmentManager.beginTransaction()
-            .show(this)
+        supportFragmentManager.beginTransaction().replace(R.id.container, this)
             .commit()
 
 }

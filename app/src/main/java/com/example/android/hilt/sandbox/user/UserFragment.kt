@@ -23,6 +23,7 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        Log.d("testsyyoo", "in user")
         Log.d("testsyyoo", user.toString())
     }
 }

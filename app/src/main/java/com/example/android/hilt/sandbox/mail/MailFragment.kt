@@ -18,10 +18,11 @@ class MailFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = View(context)
+    ): View = View(requireContext())
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.d("testsyyoo", "in mail")
         Log.d("testsyyoo", mail.toString())
 
     }
