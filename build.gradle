@@ -17,12 +17,14 @@
 buildscript {
     ext.kotlin_version = '1.7.10'
     ext.hilt_version = '2.43'
+    ext.gradle_version = '7.2.2'
+
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.2'
+        classpath "com.android.tools.build:gradle:$gradle_version"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
     }
@@ -37,4 +39,10 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    room_version = '2.4.3'
+    espresso_version = '3.4.0'
+    junit_version = '4.13.2'
 }

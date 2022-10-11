@@ -1,5 +1,104 @@
 
-## Provides instancs
+## test Runner
+```kotlin
+// com.example.android.hilt(androidTest).CustomTestRunner
+class CustomTestRunner : AndroidJUnitRunner() {
+
+    override fun newApplication(cl: ClassLoader?, name: String?, context: Context?): Application {
+        return super.newApplication(cl, HiltTestApplication::class.java.name, context)
+    }
+}
+
+// glider.app
+android {
+    defaultConfig {
+        testInstrumentationRunner "com.example.android.hilt.CustomTestRunner"
+    }
+}
+
+// running test
+@RunWith(AndroidJUnit4::class)
+@HiltAndroidTest
+class AppTest {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+
+}
+
+```
+
+## Qualifier
+Qualifier 를 사용하여 multiple binding 지원 
+```kotlin
+@Qualifier
+annotation class InMemoryLogger
+
+@InstallIn(ActivityComponent::class)
+@Module
+abstract class LoggingInMemoryModule {
+
+    @InMemoryLogger
+    @ActivityScoped
+    @Binds
+    abstract fun bindInMemoryLogger(impl: LoggerInMemoryDataSource): LoggerDataSource
+}
+
+
+//use with inject
+@InMemoryLogger
+@Inject lateinit var logger: LoggerDataSource
+```
+
+## Binds
+@Binds 역시 공급 가능(성능적 유리)
+```kotlin
+interface ModelInterface {
+    fun getModelInfo(): String
+}
+
+data class Model @Inject constructor() : ModelInterface {
+    override fun getModelInfo() = "name version"
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+abstract class BindModule {
+
+    @Binds
+    abstract fun bindModel(model: ModelImp): ModelInterface
+}
+
+// used
+@Inject lateinit var model: Model  
+
+```
+
+## Provides
+@Provides를 이용하여 객체를 제공한다.
+```kotlin
+@InstallIn(SingletonComponent::class)
+@Module
+object DatabaseModule {
+
+    @Provides
+    fun provideLogDao(database: AppDatabase): LogDao {
+        return database.logDao()
+    }
+    
+    // If you want context, you can use @ApplicationContext
+    @Provides
+    @Singleton
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
+        return Room.databaseBuilder(
+            context,
+            AppDatabase::class.java,
+            "logging.db"
+        ).build()
+    }
+}
+
+```
 
 ## Hilt Module
 생성자가 삽입될 수 없는 유형의 결합을 Hilt 모듈에 포함
