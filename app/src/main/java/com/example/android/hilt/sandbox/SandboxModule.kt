@@ -4,7 +4,6 @@ import com.example.android.hilt.sandbox.mail.Mail
 import com.example.android.hilt.sandbox.mail.MailFragment
 import com.example.android.hilt.sandbox.user.User
 import com.example.android.hilt.sandbox.user.UserFragment
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,14 +40,6 @@ class SandboxModule {
     @Provides
     fun str() = "testsetset"
 }
-
-@Module
-@InstallIn(SingletonComponent::class)
-abstract class SandboxBindModule {
-    @Binds
-    abstract fun bindSandboxModel(name: SandboxModel): SandboxModelInterface
-}
-
 
 @Qualifier
 annotation class MailScope

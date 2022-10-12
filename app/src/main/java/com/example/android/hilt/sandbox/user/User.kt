@@ -1,3 +1,6 @@
 package com.example.android.hilt.sandbox.user
 
-data class User (private val name: String)
+import javax.inject.Inject
+
+
+data class User @Inject constructor(val name: String)

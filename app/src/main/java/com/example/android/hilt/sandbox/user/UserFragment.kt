@@ -1,5 +1,6 @@
 package com.example.android.hilt.sandbox.user
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,6 +21,8 @@ class UserFragment : Fragment(), UserEvent {
     @UserScope
     @Inject lateinit var user: User
 
+    val userRepo = UserRepo()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,10 +32,8 @@ class UserFragment : Fragment(), UserEvent {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("testsyyoo", "in user")
-        Log.d("testsyyoo", user.toString())
+        userRepo.run(requireContext().applicationContext)
 
-        EntryPoints.get(requireContext().applicationContext, UserEvent::class.java).userUpdate()
 
     }
 
@@ -40,21 +41,23 @@ class UserFragment : Fragment(), UserEvent {
         Log.d("testsyyoo - userUpdate", "yeah")
     }
 
-    @InstallIn(SingletonComponent::class)
-    @EntryPoint
-    interface UserEntryPoint {
-        fun userEvent(): UserEvent
-    }
+
 }
 
 interface UserEvent {
     fun userUpdate()
 }
 
-class UserRepo(private val userEvent: UserEvent) {
+class UserRepo {
 
-    fun run() {
-        userEvent.userUpdate()
+    fun run(context: Context) {
+        Log.d("testsyyoo - run", EntryPoints.get(context, UserEntryPoint::class.java).userEvent().name)
+    }
+
+    @InstallIn(SingletonComponent::class)
+    @EntryPoint
+    interface UserEntryPoint {
+        fun userEvent(): User
     }
 
 }
