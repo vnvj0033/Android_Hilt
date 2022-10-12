@@ -37,6 +37,9 @@ class SandboxModule {
 
     @Provides
     fun provideSandboxModel() = SandboxModel("base name", 1)
+
+    @Provides
+    fun str() = "testsetset"
 }
 
 @Module
