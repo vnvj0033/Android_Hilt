@@ -1,4 +1,34 @@
 
+## EntryPoint
+@AndroidEntryPoint를 사용하지 못하는 객체에서 inject를 지원한다.
+```kotlin
+data class User @Inject constructor(val name: String)
+
+@Module
+@InstallIn(SingletonComponent::class)
+class SandboxModule {
+
+    @Provides
+    fun ProvideUserName() = "test_user_name"
+}
+
+class UserRepo {
+
+    fun run(context: Context) {
+        val user = EntryPoints.get(context, UserEntryPoint::class.java).getUser()
+    }
+
+    @InstallIn(SingletonComponent::class)
+    @EntryPoint
+    interface UserEntryPoint {
+        fun getUser(): User
+    }
+}
+
+
+```
+
+
 ## Hilt Test Role
 ```kotlin
 @RunWith(AndroidJUnit4::class)
