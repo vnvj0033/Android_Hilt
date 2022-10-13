@@ -16,6 +16,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
+import javax.inject.Provider
 
 @AndroidEntryPoint
 class MailFragment : Fragment(), MailAction {
@@ -33,7 +34,18 @@ class MailFragment : Fragment(), MailAction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        UserComponent.Builder.setEvent(this).build()
+        Provider<UserComponent.Builder> {
+            object : UserComponent.Builder {
+                override fun setEvent(action: MailAction): UserComponent.Builder {
+
+                }
+
+                override fun build(): UserComponent {
+
+                }
+
+            }
+        }.get().setEvent(this).build()
 
         repo.sendMail()
     }
