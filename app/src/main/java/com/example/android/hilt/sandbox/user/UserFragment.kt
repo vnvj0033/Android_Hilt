@@ -21,7 +21,7 @@ class UserFragment : Fragment(), UserEvent {
     @UserScope
     @Inject lateinit var user: User
 
-    val userRepo = UserRepo()
+    private val userRepo = UserRepo()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,8 +33,6 @@ class UserFragment : Fragment(), UserEvent {
         super.onViewCreated(view, savedInstanceState)
 
         userRepo.run(requireContext().applicationContext)
-
-
     }
 
     override fun userUpdate() {
