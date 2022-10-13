@@ -1,4 +1,17 @@
 
+## Hilt Test Role
+```kotlin
+@RunWith(AndroidJUnit4::class)
+@HiltAndroidTest
+class AppTest {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+}
+
+```
+
+
 ## test Runner
 ```kotlin
 // com.example.android.hilt(androidTest).CustomTestRunner
