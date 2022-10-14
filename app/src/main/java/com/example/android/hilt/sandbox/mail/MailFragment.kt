@@ -8,10 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.android.hilt.sandbox.MailScope
 import dagger.BindsInstance
-import dagger.Module
-import dagger.Provides
 import dagger.hilt.DefineComponent
 import dagger.hilt.EntryPoint
+import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.components.SingletonComponent
@@ -25,7 +24,7 @@ class MailFragment : Fragment(), MailAction {
 
     @Inject lateinit var builder: UserComponent.Builder
 
-    @Inject lateinit var repo: MailRepo
+    private lateinit var repo: MailRepo
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,8 +34,10 @@ class MailFragment : Fragment(), MailAction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val component = builder.setEvent(this).build()
 
-        builder.setEvent(this).build()
+
+        repo = EntryPoints.get(component, UserEntryPoint::class.java).getRepo()
         repo.sendMail()
 
     }
@@ -51,24 +52,10 @@ interface MailAction {
     fun sendMail()
 }
 
-class MailRepo(private var action: MailAction) {
+class MailRepo @Inject constructor(private var action: MailAction) {
     fun sendMail() {
         action.sendMail()
     }
-}
-
-@EntryPoint
-@InstallIn(UserComponent::class)
-interface UserEntryPoint {
-    fun getRepo(): MailRepo
-}
-
-@Module
-@InstallIn(SingletonComponent::class)
-class MailModule {
-
-    @Provides
-    fun providesMailRepo(action: MailAction) = MailRepo(action)
 }
 
 @DefineComponent(parent = SingletonComponent::class)
@@ -80,3 +67,16 @@ interface UserComponent {
         fun build(): UserComponent
     }
 }
+
+@EntryPoint
+@InstallIn(UserComponent::class)
+interface UserEntryPoint {
+    fun getRepo(): MailRepo
+}
+
+//@Module
+//@InstallIn(SingletonComponent::class)
+//class MailModule {
+//    @Provides
+//    fun providesRepo(event: MailAction) = MailRepo(event)
+//}
