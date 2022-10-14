@@ -16,13 +16,14 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
-import javax.inject.Provider
 
 @AndroidEntryPoint
 class MailFragment : Fragment(), MailAction {
 
     @MailScope
     @Inject lateinit var mail: Mail
+
+    @Inject lateinit var builder: UserComponent.Builder
 
     @Inject lateinit var repo: MailRepo
 
@@ -35,40 +36,39 @@ class MailFragment : Fragment(), MailAction {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        repo.action = this
-
+        builder.setEvent(this).build()
         repo.sendMail()
+
     }
 
     override fun sendMail() {
         Log.d("testsyyoo", "sendMail")
     }
 
-//    @EntryPoint
-//    @InstallIn(SingletonComponent::class)
-//    interface ActionEntryPoint {
-//
-//        fun provideAction(): MailAction
-//    }
 }
 
 interface MailAction {
     fun sendMail()
 }
 
-class MailRepo {
-    var action: MailAction? = null
+class MailRepo(private var action: MailAction) {
     fun sendMail() {
-        action?.sendMail()
+        action.sendMail()
     }
+}
+
+@EntryPoint
+@InstallIn(UserComponent::class)
+interface UserEntryPoint {
+    fun getRepo(): MailRepo
 }
 
 @Module
 @InstallIn(SingletonComponent::class)
-class MailModule() {
+class MailModule {
 
     @Provides
-    fun providesMailRepo() = MailRepo()
+    fun providesMailRepo(action: MailAction) = MailRepo(action)
 }
 
 @DefineComponent(parent = SingletonComponent::class)
