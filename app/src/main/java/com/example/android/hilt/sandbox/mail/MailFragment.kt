@@ -34,9 +34,8 @@ class MailFragment : Fragment(), MailAction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val component = builder.setEvent(this).build()
-
-
         repo = EntryPoints.get(component, UserEntryPoint::class.java).getRepo()
         repo.sendMail()
 

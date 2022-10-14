@@ -1,4 +1,46 @@
 
+## Hilt use BindsInstance
+```kotlin
+
+// BindsInstance target
+interface MailAction {
+    fun sendMail()
+}
+
+// Inject object
+class MailRepo @Inject constructor(private var action: MailAction) {
+    fun sendMail() {
+        action.sendMail()
+    }
+}
+
+// add DefineComponent
+@DefineComponent(parent = SingletonComponent::class)
+interface UserComponent {
+
+    @DefineComponent.Builder
+    interface Builder {
+        fun setEvent(@BindsInstance action: MailAction): Builder
+        fun build(): UserComponent
+    }
+}
+
+// used EntryPoint
+@EntryPoint
+@InstallIn(UserComponent::class)
+interface UserEntryPoint {
+    fun getRepo(): MailRepo
+}
+
+
+// used in fragment
+@Inject lateinit var builder: UserComponent.Builder
+
+val component = builder.setEvent(this).build()
+val repo: MailRepo = EntryPoints.get(component, UserEntryPoint::class.java).getRepo()
+
+```
+
 ## EntryPoint
 @AndroidEntryPoint를 사용하지 못하는 객체에서 inject를 지원한다.
 ```kotlin
