@@ -34,18 +34,8 @@ class MailFragment : Fragment(), MailAction {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Provider<UserComponent.Builder> {
-            object : UserComponent.Builder {
-                override fun setEvent(action: MailAction): UserComponent.Builder {
 
-                }
-
-                override fun build(): UserComponent {
-
-                }
-
-            }
-        }.get().setEvent(this).build()
+        repo.action = this
 
         repo.sendMail()
     }
@@ -54,25 +44,32 @@ class MailFragment : Fragment(), MailAction {
         Log.d("testsyyoo", "sendMail")
     }
 
-    @EntryPoint
-    @InstallIn(SingletonComponent::class)
-    interface ActionEntryPoint {
-
-        fun provideAction(): MailAction
-    }
+//    @EntryPoint
+//    @InstallIn(SingletonComponent::class)
+//    interface ActionEntryPoint {
+//
+//        fun provideAction(): MailAction
+//    }
 }
 
 interface MailAction {
     fun sendMail()
 }
 
-class MailRepo(private val action: MailAction) {
-
+class MailRepo {
+    var action: MailAction? = null
     fun sendMail() {
-        action.sendMail()
+        action?.sendMail()
     }
 }
 
+@Module
+@InstallIn(SingletonComponent::class)
+class MailModule() {
+
+    @Provides
+    fun providesMailRepo() = MailRepo()
+}
 
 @DefineComponent(parent = SingletonComponent::class)
 interface UserComponent {
