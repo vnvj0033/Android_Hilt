@@ -12,20 +12,7 @@ import javax.inject.Qualifier
 
 @Module
 @InstallIn(SingletonComponent::class)
-class SandboxModule {
-
-    @MailScope
-    @Provides
-    fun providesMailFragment() = MailFragment()
-
-    @MailScope
-    @Provides
-    fun providesMail() = Mail("mail name", "body")
-
-    @MailScope
-    @Provides
-    fun providesMailUser() = User("mail user name")
-
+class SandboxUserModule {
     @UserScope
     @Provides
     fun providesUserFragment() = UserFragment()
@@ -33,12 +20,25 @@ class SandboxModule {
     @UserScope
     @Provides
     fun providesUser() = User("user name")
+}
+
+@Module
+@InstallIn(SingletonComponent::class)
+class SandboxMailModule {
+
+    @MailScope
+    @Provides
+    fun providesMailFragment() = MailFragment()
+
+    @MailScope
+    @Provides
+    fun providesMailUser() = User("mail user name")
 
     @Provides
     fun provideSandboxModel() = SandboxModel("base name", 1)
 
     @Provides
-    fun str() = "testsetset"
+    fun providesMail() = Mail("mail name", "body")
 }
 
 @Qualifier
