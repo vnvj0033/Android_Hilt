@@ -6,13 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import dagger.BindsInstance
-import dagger.hilt.DefineComponent
-import dagger.hilt.EntryPoint
 import dagger.hilt.EntryPoints
-import dagger.hilt.InstallIn
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.components.SingletonComponent
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -20,7 +15,7 @@ class MailFragment : Fragment(), MailAction {
 
     lateinit var mail: Mail
 
-    @Inject lateinit var builder: UserComponent.Builder
+    @Inject lateinit var builder: MailComponent.Builder
 
     private lateinit var repo: MailRepo
 
@@ -44,31 +39,4 @@ class MailFragment : Fragment(), MailAction {
         Log.d("testsyyoo", mail.toString())
     }
 
-}
-
-interface MailAction {
-    fun sendMail()
-}
-
-class MailRepo @Inject constructor(private var action: MailAction) {
-    fun sendMail() {
-        action.sendMail()
-    }
-}
-
-@DefineComponent(parent = SingletonComponent::class)
-interface UserComponent {
-
-    @DefineComponent.Builder
-    interface Builder {
-        fun setEvent(@BindsInstance action: MailAction): Builder
-        fun build(): UserComponent
-    }
-}
-
-@EntryPoint
-@InstallIn(UserComponent::class)
-interface UserEntryPoint {
-    fun getRepo(): MailRepo
-    fun getMail(): Mail
 }
