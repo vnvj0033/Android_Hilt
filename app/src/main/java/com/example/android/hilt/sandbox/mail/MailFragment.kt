@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.android.hilt.sandbox.MailScope
 import dagger.BindsInstance
 import dagger.hilt.DefineComponent
 import dagger.hilt.EntryPoint
@@ -19,8 +18,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MailFragment : Fragment(), MailAction {
 
-    @MailScope
-    @Inject lateinit var mail: Mail
+    lateinit var mail: Mail
 
     @Inject lateinit var builder: UserComponent.Builder
 
@@ -37,12 +35,13 @@ class MailFragment : Fragment(), MailAction {
 
         val component = builder.setEvent(this).build()
         repo = EntryPoints.get(component, UserEntryPoint::class.java).getRepo()
+        mail = EntryPoints.get(component, UserEntryPoint::class.java).getMail()
         repo.sendMail()
 
     }
 
     override fun sendMail() {
-        Log.d("testsyyoo", "sendMail")
+        Log.d("testsyyoo", mail.toString())
     }
 
 }
@@ -71,11 +70,5 @@ interface UserComponent {
 @InstallIn(UserComponent::class)
 interface UserEntryPoint {
     fun getRepo(): MailRepo
+    fun getMail(): Mail
 }
-
-//@Module
-//@InstallIn(SingletonComponent::class)
-//class MailModule {
-//    @Provides
-//    fun providesRepo(event: MailAction) = MailRepo(event)
-//}
