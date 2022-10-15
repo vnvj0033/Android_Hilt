@@ -37,8 +37,24 @@ class SandboxMailModule {
     @Provides
     fun provideSandboxModel() = SandboxModel("base name", 1)
 
+    @MailScope
     @Provides
     fun providesMail() = Mail("mail name", "body")
+}
+
+
+@Module
+@InstallIn(SingletonComponent::class)
+class SandboxEntryModule {
+
+    @Provides
+    fun name() = "name"
+
+    @Provides
+    fun mes() = "message"
+
+    @Provides
+    fun mail() = Mail("123", "123")
 }
 
 @Qualifier
