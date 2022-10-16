@@ -10,4 +10,8 @@ class Mail @Inject constructor(
 ) {
     @MailScope
     @Inject lateinit var user: User
+
+    override fun toString(): String {
+        return "Mail{title:$title , body:$body}"
+    }
 }
