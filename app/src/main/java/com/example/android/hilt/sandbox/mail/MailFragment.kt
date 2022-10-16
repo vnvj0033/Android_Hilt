@@ -36,6 +36,8 @@ class MailFragment : Fragment(), MailAction {
 
         presenter.sendMail()
 
+        Log.d("testsyyoo - eq", (presenter.repo == repo).toString())
+
     }
 
     override fun mailInfo() {
