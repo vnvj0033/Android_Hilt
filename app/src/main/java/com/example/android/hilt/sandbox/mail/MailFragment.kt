@@ -13,12 +13,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MailFragment : Fragment(), MailAction {
 
-    lateinit var mail: Mail
-    lateinit var presenter: MailPresenter
-
     @Inject lateinit var builder: MailComponent.Builder
 
+    private lateinit var presenter: MailPresenter
     private lateinit var repo: MailRepo
+    private lateinit var mail: Mail
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,18 +29,21 @@ class MailFragment : Fragment(), MailAction {
         super.onViewCreated(view, savedInstanceState)
 
         val component = builder.setEvent(this).build()
-        repo = EntryPoints.get(component, UserEntryPoint::class.java).getRepo()
-        mail = EntryPoints.get(component, UserEntryPoint::class.java).getMail()
-        presenter = EntryPoints.get(component, UserEntryPoint::class.java).getPresenter()
+        val userEntryPoint = EntryPoints.get(component, UserEntryPoint::class.java)
+        presenter = userEntryPoint.getPresenter()
+        userEntryPoint.getPresenter()
+        repo = userEntryPoint.getRepo()
+        mail = userEntryPoint.getMail()
 
         presenter.sendMail()
 
-        Log.d("testsyyoo - eq", (presenter.repo == repo).toString())
+        Log.d("MailRepo-hash", userEntryPoint.hashCode().toString())
+        Log.d("MailRepo-hash", userEntryPoint.hashCode().toString())
 
     }
 
     override fun mailInfo() {
-        Log.d("testsyyoo", mail.toString())
+        Log.d("testsyyoo", "send mail! : $mail")
     }
 
 }
