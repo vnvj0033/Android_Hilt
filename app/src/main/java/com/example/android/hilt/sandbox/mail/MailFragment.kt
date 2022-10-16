@@ -14,6 +14,7 @@ import javax.inject.Inject
 class MailFragment : Fragment(), MailAction {
 
     lateinit var mail: Mail
+    lateinit var presenter: MailPresenter
 
     @Inject lateinit var builder: MailComponent.Builder
 
@@ -31,11 +32,13 @@ class MailFragment : Fragment(), MailAction {
         val component = builder.setEvent(this).build()
         repo = EntryPoints.get(component, UserEntryPoint::class.java).getRepo()
         mail = EntryPoints.get(component, UserEntryPoint::class.java).getMail()
-        repo.sendMail()
+        presenter = EntryPoints.get(component, UserEntryPoint::class.java).getPresenter()
+
+        presenter.sendMail()
 
     }
 
-    override fun sendMail() {
+    override fun mailInfo() {
         Log.d("testsyyoo", mail.toString())
     }
 

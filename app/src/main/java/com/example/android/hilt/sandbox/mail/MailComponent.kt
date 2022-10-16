@@ -19,6 +19,7 @@ interface MailComponent {
 @EntryPoint
 @InstallIn(MailComponent::class)
 interface UserEntryPoint {
+    fun getPresenter(): MailPresenter
     fun getRepo(): MailRepo
     fun getMail(): Mail
 }
