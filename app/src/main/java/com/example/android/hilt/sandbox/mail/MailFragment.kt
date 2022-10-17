@@ -10,6 +10,19 @@ import dagger.hilt.EntryPoints
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+/**
+ * MailFragment --------------------
+ * |
+ * |    MailPresenter --------------|
+ * |    |                           |
+ * |    |   MailRepository ----|    |
+ * |    |   |------------------|    |
+ * |    |                           |
+ * |    |---------------------------|
+ *
+ *
+ * */
+
 @AndroidEntryPoint
 class MailFragment : Fragment(), MailAction {
 
