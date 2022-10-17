@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.android.hilt.R
 import com.example.android.hilt.sandbox.mail.MailFragment
+import com.example.android.hilt.sandbox.mail.MailScope
 import com.example.android.hilt.sandbox.user.UserFragment
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
