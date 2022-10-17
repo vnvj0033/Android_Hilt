@@ -38,6 +38,7 @@ interface UserEntryPoint {
 
 val component = builder.setEvent(this).build()
 val repo: MailRepo = EntryPoints.get(component, UserEntryPoint::class.java).getRepo()
+// EntryPoints.get으로 가저온 객체는 다른 객체를 생성해서 가저옴
 
 ```
 
