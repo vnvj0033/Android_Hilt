@@ -6,8 +6,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.DefineComponent
 import dagger.hilt.EntryPoint
+import dagger.hilt.EntryPoints
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Named
 import javax.inject.Qualifier
@@ -23,17 +25,24 @@ interface MailComponent {
     }
 }
 
+
+
 @EntryPoint
 @InstallIn(MailComponent::class)
 interface UserEntryPoint {
-    fun getPresenter(): MailPresenter
-    fun getRepo(): MailRepo
-    fun getMail(): Mail
+    fun getAction(): MailAction
 }
 
 @Module
-@InstallIn(MailComponent::class)
+@InstallIn(ActivityComponent::class)
 class SandboxEntryModule {
+
+    @Provides
+    fun component(builder: MailComponent.Builder) = EntryPoints.get(builder.setEvent(object : MailAction{
+        override fun mailInfo() {
+
+        }
+    }).build(), UserEntryPoint::class.java).getAction()
 
     @Provides
     @Singleton

@@ -44,16 +44,7 @@ class MailFragment : Fragment(), MailAction {
         val component = builder.setEvent(this).build()
         val userEntryPoint = EntryPoints.get(component, UserEntryPoint::class.java)
 
-
-        presenter = userEntryPoint.getPresenter()
-        userEntryPoint.getPresenter()
-        repo = userEntryPoint.getRepo()
-        mail = userEntryPoint.getMail()
-
         presenter.sendMail()
-
-        Log.d("mail", userEntryPoint.getMail().hashCode().toString())
-        Log.d("mail", userEntryPoint.getMail().hashCode().toString())
 
     }
 
