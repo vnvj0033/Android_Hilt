@@ -7,11 +7,13 @@ import dagger.Provides
 import dagger.hilt.DefineComponent
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Named
 import javax.inject.Qualifier
+import javax.inject.Singleton
 
-@DefineComponent(parent = SingletonComponent::class)
+@DefineComponent(parent = ActivityComponent::class)
 interface MailComponent {
 
     @DefineComponent.Builder
@@ -33,19 +35,9 @@ interface UserEntryPoint {
 @InstallIn(MailComponent::class)
 class SandboxEntryModule {
 
-    @Named("name")
     @Provides
-    fun provideName() = "name"
-
-    @Named("message")
-    @Provides
-    fun provideMessage() = "message"
-
-    @Provides
-    fun provideMail(
-        @Named("name") name: String,
-        @Named("message") message: String
-    ) = Mail(name, message)
+    @Singleton
+    fun provideMail() = Mail("name", "message")
 }
 
 
@@ -69,3 +61,7 @@ class SandboxMailModule {
 
 @Qualifier
 annotation class MailScope
+
+
+@Qualifier
+annotation class MailTestScope
